@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diwakar D | Portfolio</title>
+  <style>
+    /* RESET */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background:#0d1117;
+      color:#e6edf3;
+      scroll-behavior:smooth;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* NAVBAR */
+    nav {
+      position:fixed; top:0; left:0; width:100%;
+      background:rgba(13,17,23,0.9);
+      backdrop-filter:blur(10px);
+      display:flex; justify-content:space-between; align-items:center;
+      padding:1rem 5%; z-index:1000; transition:0.3s;
+    }
+    nav h1 { font-size:1.5rem; color:#00d8ff; font-weight:bold; }
+    nav ul { list-style:none; display:flex; gap:1.5rem; }
+    nav ul li a {
+      text-decoration:none; color:#fff; font-weight:500; position:relative;
+    }
+    nav ul li a::after {
+      content:""; position:absolute; left:0; bottom:-5px; width:0%; height:2px;
+      background:#00d8ff; transition:0.3s;
+    }
+    nav ul li a:hover::after { width:100%; }
+
+    /* HERO */
+    header {
+      height:100vh; display:flex; flex-direction:column;
+      justify-content:center; align-items:center; text-align:center;
+      background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.7)),
+        url("https://source.unsplash.com/1600x900/?developer,coding") center/cover;
+      position:relative; overflow:hidden;
+    }
+    header h2 { font-size:3rem; animation:fadeInDown 1s; }
+    header .typing {
+      font-size:1.3rem; color:#00d8ff; margin-top:10px;
+      border-right:3px solid #00d8ff; white-space:nowrap; overflow:hidden;
+      width:0; animation:typing 4s steps(40,end) forwards, blink 0.7s infinite;
+    }
+    @keyframes typing { from{width:0} to{width:100%} }
+    @keyframes blink { 50%{border-color:transparent} }
+    @keyframes fadeInDown { from{opacity:0; transform:translateY(-50px);} to{opacity:1; transform:translateY(0);} }
+    header a {
+      margin-top:2rem; display:inline-block; padding:0.7rem 1.5rem;
+      background:#00d8ff; color:#000; border-radius:25px;
+      text-decoration:none; font-weight:bold; transition:0.3s;
+    }
+    header a:hover { background:#009ec3; color:#fff; }
+
+    section { padding:100px 10%; }
+    section h3 {
+      text-align:center; margin-bottom:40px; font-size:2rem; color:#00d8ff;
+    }
+
+    /* ABOUT */
+    .about p {
+      max-width:700px; margin:auto; text-align:center; font-size:1.1rem;
+      opacity:0; transform:translateY(30px); transition:1s;
+    }
+    .about.show p { opacity:1; transform:translateY(0); }
+
+    /* SKILLS */
+    .skill { margin-bottom:20px; }
+    .skill p { margin-bottom:6px; display:flex; justify-content:space-between; }
+    .progress {
+      background:#222; border-radius:25px; overflow:hidden; position:relative;
+    }
+    .progress div {
+      height:20px; width:0; background:linear-gradient(90deg,#00d8ff,#009ec3);
+      border-radius:25px; transition:width 2s;
+    }
+    .progress span {
+      position:absolute; right:10px; top:0; font-size:0.8rem; color:#000;
+    }
+
+    /* PROJECTS */
+    .projects {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px;
+    }
+    .project-card {
+      background:#161b22; border-radius:15px; padding:20px;
+      transition:transform 0.4s; transform-style:preserve-3d;
+    }
+    .project-card:hover {
+      transform:rotateY(5deg) rotateX(5deg) scale(1.05);
+      box-shadow:0 10px 20px rgba(0,0,0,0.5);
+    }
+    .project-card h4 { margin-bottom:10px; color:#00d8ff; }
+
+    /* CONTACT */
+    .contact { text-align:center; }
+    .contact p { margin:10px 0; }
+    .contact a { color:#00d8ff; text-decoration:none; }
+    .contact a:hover { text-decoration:underline; }
+    .contact form {
+      margin-top:20px; max-width:500px; margin-inline:auto; display:flex; flex-direction:column; gap:10px;
+    }
+    .contact input,.contact textarea {
+      padding:10px; border-radius:8px; border:none; outline:none; background:#222; color:#fff;
+    }
+    .contact button {
+      background:#00d8ff; padding:10px; border:none; border-radius:8px;
+      font-weight:bold; cursor:pointer; transition:0.3s;
+    }
+    .contact button:hover { background:#009ec3; }
+
+    /* FOOTER */
+    footer { background:#111; color:#888; text-align:center; padding:15px 0; font-size:0.9rem; }
+
+    /* DARK MODE */
+    .light-mode { background:#f8f9fa; color:#111; }
+    .light-mode nav { background:rgba(255,255,255,0.9); }
+    .light-mode nav ul li a { color:#000; }
+    .toggle-btn {
+      position:fixed; bottom:20px; right:20px; background:#00d8ff;
+      border:none; padding:10px; border-radius:50%; cursor:pointer;
+      box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    /* SCROLL TOP */
+    .scroll-top {
+      position:fixed; bottom:80px; right:20px; background:#009ec3;
+      border:none; padding:10px 12px; border-radius:50%; cursor:pointer;
+      display:none; color:#fff; font-weight:bold;
+    }
+    .con{
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <h1>Diwakar D</h1>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <header>
+    <h2>Hello, I'm Diwakar 👋</h2>
+    <div class="typing">Software Developer | Full Stack Enthusiast | Problem Solver</div>
+    <a href="resume.pdf" target="_blank">View Resume</a>
+
+  </header>
+
+</header>
+
+<!-- My Photo Section -->
+<section id="photo" style="
+  padding:100px 10%;
+  display:flex; justify-content:center; align-items:center; flex-direction:column; text-align:center;">
+  
+  <h3 style="margin-bottom:24px; font-size:32px; color:#00d8ff;">MySelf</h3>
+
+  <div
+    onmouseenter="this.style.transform='scale(1.02)'; this.style.boxShadow='0 20px 60px rgba(0,216,255,0.25)';"
+    onmouseleave="this.style.transform='scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.5)';"
+    style="
+      background: rgba(22,27,34,0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transition: transform 250ms ease, box-shadow 250ms ease;
+      max-width: 420px;
+      width: 100%;
+    "
+  >
+    <div style="
+      width: 220px; height: 220px; margin: 0 auto 16px auto; padding: 6px; border-radius: 50%;
+      background: conic-gradient(from 140deg, #00d8ff, #009ec3, #6ee7ff, #00d8ff);
+    ">
+      <img
+        src="assets/diwakar.jpg" alt="Diwakar D"
+        style="
+          width: 100%; height: 100%; object-fit: cover; display:block;
+          border-radius: 50%; border: 4px solid #0d1117;
+        "
+        onerror="this.src='https://via.placeholder.com/220?text=Your+Photo';"
+      />
+    </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="about">
+
+  <!-- About -->
+  <section id="about" class="about">
+    <h3>About Me</h3>
+    <p>
+      I'm Diwakar from Tirupattur, Tamil Nadu. Pursuing MCA at Karpagam College of Engineering (CGPA 8.2).  
+      Skilled in Java, SQL, JavaScript, React.js, and passionate about building scalable applications.
+    </p>
+  </section>
+
+  <!-- Skills -->
+  <!-- Skills -->
+<section id="skills">
+  <h3>Skills</h3>
+  <div class="skills-grid" style="
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    gap: 20px; 
+    max-width: 800px; 
+    margin: auto;
+  ">
+    <div style="background:#161b22; padding:20px; border-radius:10px; text-align:center;">
+      💻 Java
+    </div>
+    <div style="background:#161b22; padding:20px; border-radius:10px; text-align:center;">
+      📊 Java (Data Structures Basics)
+    </div>
+    <div style="background:#161b22; padding:20px; border-radius:10px; text-align:center;">
+      🗄️ SQL
+    </div>
+    <div style="background:#161b22; padding:20px; border-radius:10px; text-align:center;">
+      ⚡ JavaScript
+    </div>
+    <div style="background:#161b22; padding:20px; border-radius:10px; text-align:center;">
+      🌐 React.js
+    </div>
+    <div style="background:#161b22; padding:20px; border-radius:10px; text-align:center;">
+      🐍 Python (Basic)
+    </div>
+    <div style="background:#161b22; padding:20px; border-radius:10px; text-align:center;">
+      🎨 HTML
+    </div>
+    <div style="background:#161b22; padding:20px; border-radius:10px; text-align:center;">
+      🎨 CSS
+    </div>
+  </div>
+</section>
+
+
+  <!-- Projects -->
+  <section id="projects">
+    <h3>Projects</h3>
+    <div class="projects">
+      <div class="project-card">
+        <h4>PetPathway Web App</h4>
+        <p>Full-stack app for pet adoption using HTML, CSS, JS, and MySQL.</p>
+      </div>
+      <div class="project-card">
+        <h4>Perfume Website</h4>
+        <p>Responsive frontend design using HTML & CSS.</p>
+      </div>
+      <div class="project-card">
+        <h4>Employee Workflow Manager</h4>
+        <p>HR app (IEEE published).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <!-- Contact -->
+<section id="contact" class="contact" style="text-align: center;">
+  <div class="con"><h3>Contact Me</h3>
+    <p>Email: <a href="mailto:diwakar5748918@gmail.com">diwakar5748918@gmail.com</a></p>
+    <p>Mobile: +91 6383927348</p>
+  </div>
+  
+  <div style="margin-top:20px;">
+    <!-- GitHub Button -->
+    <a href="https://github.com/diwakar111/community/" target="_blank" style="
+      display:inline-block; 
+      background:#333; 
+      color:#fff; 
+      padding:10px 20px; 
+      margin:5px;
+      border-radius:8px; 
+      text-decoration:none; 
+      font-weight:bold;">
+      <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" 
+           width="20" style="vertical-align:middle; margin-right:8px;">
+      GitHub
+    </a>
+
+    <!-- LinkedIn Button -->
+    <a href="https://www.linkedin.com/in/diwakar-d-a427302a8/" target="_blank" style="
+      display:inline-block; 
+      background:#0A66C2; 
+      color:#fff; 
+      padding:10px 20px; 
+      margin:5px;
+      border-radius:8px; 
+      text-decoration:none; 
+      font-weight:bold;">
+      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" 
+           width="20" style="vertical-align:middle; margin-right:8px;">
+      LinkedIn
+    </a>
+  </div>
+</section>
+
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Diwakar D | All Rights Reserved</p>
+  </footer>
+
+  <!-- Dark Mode Toggle -->
+  <button class="toggle-btn" onclick="toggleMode()">🌙</button>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-top" onclick="scrollToTop()">↑</button>
+
+  <!-- JS -->
+  <script>
+    // Scroll reveal About
+    const about = document.querySelector(".about");
+    window.addEventListener("scroll",()=>{ if(window.scrollY > about.offsetTop-400){ about.classList.add("show"); } });
+
+    // Animate skill bars
+    const skills=document.querySelectorAll(".progress div"); let animated=false;
+    window.addEventListener("scroll",()=>{
+      const s=document.getElementById("skills");
+      if(!animated && window.scrollY > s.offsetTop-400){
+        skills.forEach(skill=>{
+          skill.style.width=skill.style.getPropertyValue("--w");
+        });
+        animated=true;
+      }
+    });
+
+    // Dark Mode
+    function toggleMode(){ document.body.classList.toggle("light-mode"); }
+
+    // Scroll Top button
+    const topBtn=document.querySelector(".scroll-top");
+    window.addEventListener("scroll",()=>{ topBtn.style.display=window.scrollY>500?"block":"none"; });
+    function scrollToTop(){ window.scrollTo({top:0,behavior:"smooth"}); }
+
+  
+  </script>
+</body>
+</html>
